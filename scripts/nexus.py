@@ -223,8 +223,8 @@ def run_job(args: argparse.Namespace) -> None:
         distinct = f"{work}/daily-active-players"
         windowed = f"{work}/distinct-activity-windows"
         steps = [
-            ("fr.thesakyo.nexus.mapreduce.DailyActivePlayersJob", [telemetry, distinct], [distinct]),
-            ("fr.thesakyo.nexus.mapreduce.ActivityMetricsJob",
+            ("fr.thesakyo.nexus.mapreduce.activity.DailyActivePlayersJob", [telemetry, distinct], [distinct]),
+            ("fr.thesakyo.nexus.mapreduce.activity.ActivityMetricsJob",
              [distinct, windowed, output, start_date.isoformat()], [windowed, output]),
         ]
     elif args.analysis == "retention":
@@ -242,8 +242,8 @@ def run_job(args: argparse.Namespace) -> None:
             raise ValueError("--max-day must be between 0 and 90.")
         joined = f"{work}/player-cohort-activity"
         steps = [
-            ("fr.thesakyo.nexus.mapreduce.PlayerCohortJoinJob", [players, telemetry, joined], [joined]),
-            ("fr.thesakyo.nexus.mapreduce.CohortRetentionMetricsJob",
+            ("fr.thesakyo.nexus.mapreduce.retention.PlayerCohortJoinJob", [players, telemetry, joined], [joined]),
+            ("fr.thesakyo.nexus.mapreduce.retention.CohortRetentionMetricsJob",
              [joined, output, start_date.isoformat(), as_of_date.isoformat(), str(args.max_day)], [output]),
         ]
     else:
@@ -255,9 +255,9 @@ def run_job(args: argparse.Namespace) -> None:
             raise ValueError("--work and --output must not be the HDFS root.")
         joined = f"{work}/technical-incidents-joined"
         steps = [
-            ("fr.thesakyo.nexus.mapreduce.TechnicalIncidentsByProfileJob",
+            ("fr.thesakyo.nexus.mapreduce.technical.TechnicalIncidentsByProfileJob",
              [players, telemetry, joined], [joined]),
-            ("fr.thesakyo.nexus.mapreduce.TechnicalIncidentAggregationJob", [joined, output], [output]),
+            ("fr.thesakyo.nexus.mapreduce.technical.TechnicalIncidentAggregationJob", [joined, output], [output]),
         ]
 
     planned_outputs = [path for _, _, outputs in steps for path in outputs]

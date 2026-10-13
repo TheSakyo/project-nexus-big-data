@@ -43,6 +43,15 @@ Le démarrage synchronise la configuration versionnée et démarre les services.
 
 ## Jobs Java préparés
 
+### Organisation du code
+
+- `mapreduce/common` regroupe le parsing partagé des événements et profils joueurs, ainsi que la clé composite de jointure.
+- `mapreduce/activity` contient la déduplication joueur-jour et les jobs DAU/WAU.
+- `mapreduce/retention` contient la jointure profils/activité et l’agrégation de rétention Dn.
+- `mapreduce/technical` contient la jointure télémétrie technique/profils et l’agrégation finale des incidents.
+
+Les packages suivent les domaines analytiques. Les étapes Hadoop Map et Reduce restent explicites dans chaque job, tandis que le parsing et les mécanismes de jointure communs sont factorisés.
+
 Construire le JAR sans lancer de tests :
 
 ```sh

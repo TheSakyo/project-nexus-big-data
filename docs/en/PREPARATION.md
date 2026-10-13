@@ -43,6 +43,15 @@ Starting synchronizes the version-controlled configuration and starts the servic
 
 ## Prepared Java jobs
 
+### Code layout
+
+- `mapreduce/common` contains shared telemetry/player parsing and the composite player join key.
+- `mapreduce/activity` contains the player-day and DAU/WAU jobs.
+- `mapreduce/retention` contains the player/activity join and Dn retention aggregation.
+- `mapreduce/technical` contains the technical-event/profile join and final incident aggregation.
+
+The packages follow the analytical domains. Each job keeps Hadoop mapper/reducer stages explicit, while parsing and repeated join mechanics live in shared components.
+
 Package the JAR without running tests:
 
 ```sh
