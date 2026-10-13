@@ -24,9 +24,10 @@ Project Nexus is an educational Big Data project using Hadoop and Java MapReduce
 - Build with the Maven Wrapper: `mvnw.cmd` on Windows, or `./mvnw` on Linux, macOS, and WSL.
 - Preparation utilities require Python 3.9 or later. Use `python` or `python3`, depending on the operating system.
 - Inventory command: `python scripts/nexus.py inventory --root PATH_TO_DATASET`.
+- Package the Java jobs with `python scripts/nexus.py build`; submit activity, retention, or technical pipelines with `python scripts/nexus.py job --help`.
 - Cluster commands: `python scripts/nexus.py cluster status`, `start`, or `stop`. Cluster management also requires OpenSSH and an SSH alias configured for the project server.
 
-The Python utility only supports inventory and cluster management. Assessed data processing and analysis jobs will be implemented in Java MapReduce on Hadoop.
+The Python utility handles inventory, cluster management, packaging, and job submission. Data processing and analysis are implemented in Java MapReduce on Hadoop. See the language-specific preparation guide for commands and metric definitions.
 
 ## Français
 
@@ -55,6 +56,7 @@ L’outil Python sert uniquement à l’inventaire et à la gestion du cluster. 
 ## Current project status / État actuel
 
 - Hadoop 3.5.0, HDFS, and YARN are installed on the preparation server; a synthetic WordCount smoke job succeeded. / Hadoop 3.5.0, HDFS et YARN sont installés sur le serveur de préparation ; un test WordCount synthétique a réussi.
+- Java MapReduce jobs for daily activity, retention, and profile-joined technical incidents are prepared. They have not been run on project data. / Les jobs Java MapReduce pour l’activité, la rétention et les incidents techniques joints aux profils sont préparés. Ils n’ont pas été exécutés sur les données du projet.
 - The real dataset is still downloading. Do not inspect, move, or ingest its data files until the user confirms completion. The official catalog has been reviewed separately. / Le dataset réel est toujours en cours de téléchargement. Ne pas inspecter, déplacer ou ingérer ses fichiers de données avant confirmation de la fin. Le catalogue officiel a été consulté séparément.
 - No real-data results have been produced. / Aucun résultat sur les données réelles n’a encore été produit.
 

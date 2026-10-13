@@ -39,7 +39,61 @@ Le démarrage synchronise la configuration versionnée et démarre les services.
 3. Choisir un transfert qui n’entraîne pas une copie complète inutile sur le serveur.
 4. Vérifier l’espace disponible et réserver de la marge pour `PROCESSED`, les résultats et les fichiers temporaires.
 5. Importer en `RAW` avec un manifeste de lot et une commande relançable qui ne remplace pas une ingestion existante.
-6. Définir schémas et contrôles avant d’écrire les fonctions Map et Reduce métier.
+6. Comparer les fichiers aux hypothèses du parseur et aux schémas du catalogue, puis ajuster les fonctions Map et Reduce si nécessaire.
+
+## Jobs Java préparés
+
+Construire le JAR sans lancer de tests :
+
+```sh
+python scripts/nexus.py build
+```
+
+Les commandes suivantes soumettent les jobs sur le serveur `turing-server` par SSH. Les chemins doivent déjà exister dans HDFS pour les entrées. Les chemins de travail et de sortie doivent être nouveaux à chaque exécution ; le script refuse d’écraser une sortie existante. Remplacer chaque date par les bornes déterminées lors de l’inventaire.
+
+DAU et WAU glissant sur sept jours UTC :
+
+```sh
+python scripts/nexus.py job activity \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-activity-001 \
+  --output /datalake/analytics/activity-001 \
+  --start-date YYYY-MM-DD
+```
+
+Rétention Dn, cohortes hebdomadaires basées sur `players.created_at` :
+
+```sh
+python scripts/nexus.py job retention \
+  --players /datalake/raw/mongo/players \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-retention-001 \
+  --output /datalake/analytics/retention-001 \
+  --start-date YYYY-MM-DD \
+  --as-of-date YYYY-MM-DD \
+  --max-day 30
+```
+
+Incidents techniques joints au profil du joueur :
+
+```sh
+python scripts/nexus.py job technical \
+  --players /datalake/raw/mongo/players \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-technical-001 \
+  --output /datalake/analytics/technical-001
+```
+
+Le JAR utilise des snapshots de joueurs JSONL. Si MongoDB n’est livré qu’en BSON, ces commandes ne sont pas encore exécutables : préparer un export JSONL après avoir vérifié les fichiers et les outils disponibles.
+
+### Définitions et limites des sorties
+
+- La télémétrie normalise `event_type`/`evt`, `timestamp`/`ts`, `player_id`/`pid`, `session_id`/`session` et `game_version`/`ver`. Les horodatages sans fuseau sont interprétés en UTC ; confirmer cette règle à l’échantillonnage.
+- `DailyActivePlayersJob` sort `date<TAB>player_id`, une ligne par joueur actif et par jour UTC. `ActivityMetricsJob` sort `DAU<TAB>date<TAB>count` et `WAU<TAB>début_de_fenêtre<TAB>count`. WAU couvre sept jours calendaires à partir de cette date. Les dates sans activité sont absentes, ce qui équivaut à zéro.
+- La rétention regroupe les installations par lundi UTC et calcule l’activité au jour exact Dn. Le dénominateur de chaque Dn ne comprend que les joueurs installés depuis le début de la période observée et dont le jour Dn est antérieur ou égal à `--as-of-date`.
+- L’axe technique sort date, version, plateforme, fabricant GPU, sessions, crashs, déconnexions et crashs/session. Il porte sur les événements rattachés à une fiche joueur. Les événements sans identifiant ou sans fiche sont comptés dans les compteurs Hadoop et exclus des groupes matériels.
+- Les événements techniques bruts ne sont pas dédupliqués par `event_id`, car le catalogue signale que cet identifiant peut être réutilisé. Les taux et comptages devront être réévalués après examen des doublons réels.
+- Les compteurs Hadoop distinguent les lignes invalides et les identifiants absents. Aucun résultat de ces jobs n’a été exécuté sur les données du projet.
 
 Les 40 Gio annoncés dans le sujet sont une estimation. Le dimensionnement final utilisera les tailles observées, la compression et l’espace nécessaire aux zones intermédiaires. Le serveur n’a qu’environ 848 Mio de RAM ; si les traitements utiles ne peuvent pas tenir dans cette contrainte, il faudra une autre machine ou une stratégie adaptée, puis mesurer réellement le passage à l’échelle.
 

@@ -39,7 +39,61 @@ Starting synchronizes the version-controlled configuration and starts the servic
 3. Choose a transfer method that avoids an unnecessary full duplicate on the server.
 4. Check available storage and reserve headroom for `PROCESSED`, results, and temporary files.
 5. Import into `RAW` with a batch manifest and a restartable command that does not overwrite an existing ingestion.
-6. Define schemas and checks before writing the business Map and Reduce functions.
+6. Compare files with parser assumptions and catalog schemas, then adjust Map and Reduce functions if needed.
+
+## Prepared Java jobs
+
+Package the JAR without running tests:
+
+```sh
+python scripts/nexus.py build
+```
+
+The following commands submit jobs to `turing-server` over SSH. Input paths must already exist in HDFS. Work and output paths must be new for each run; the script refuses to overwrite an existing output. Replace dates with boundaries established during inventory.
+
+DAU and rolling seven-day UTC WAU:
+
+```sh
+python scripts/nexus.py job activity \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-activity-001 \
+  --output /datalake/analytics/activity-001 \
+  --start-date YYYY-MM-DD
+```
+
+Dn retention with weekly cohorts based on `players.created_at`:
+
+```sh
+python scripts/nexus.py job retention \
+  --players /datalake/raw/mongo/players \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-retention-001 \
+  --output /datalake/analytics/retention-001 \
+  --start-date YYYY-MM-DD \
+  --as-of-date YYYY-MM-DD \
+  --max-day 30
+```
+
+Technical incidents joined to player profiles:
+
+```sh
+python scripts/nexus.py job technical \
+  --players /datalake/raw/mongo/players \
+  --telemetry /datalake/raw/telemetry \
+  --work /datalake/processed/run-technical-001 \
+  --output /datalake/analytics/technical-001
+```
+
+The JAR expects player JSONL snapshots. If MongoDB is delivered as BSON only, these commands are not ready to run; prepare a JSONL export after checking the delivered files and available tools.
+
+### Output definitions and limits
+
+- Telemetry normalizes `event_type`/`evt`, `timestamp`/`ts`, `player_id`/`pid`, `session_id`/`session`, and `game_version`/`ver`. Timestamps without a timezone are interpreted as UTC; confirm this at sampling time.
+- `DailyActivePlayersJob` writes `date<TAB>player_id`, one row per active player per UTC day. `ActivityMetricsJob` writes `DAU<TAB>date<TAB>count` and `WAU<TAB>window_start<TAB>count`. WAU spans seven calendar days starting on that date. Dates with no activity are omitted, equivalent to zero.
+- Retention groups installation dates by Monday UTC and measures activity on exact day Dn. Each Dn denominator includes only players installed on or after the observed period start whose Dn is on or before `--as-of-date`.
+- The technical track writes date, version, platform, GPU vendor, sessions, crashes, disconnects, and crashes/session. It covers events joined to a player record. Events without an ID or player record are counted by Hadoop counters and excluded from hardware groups.
+- Raw technical events are not deduplicated by `event_id` because the catalog warns that this identifier may be reused. Reassess counts and rates after examining actual duplicates.
+- Hadoop counters distinguish invalid input lines and missing identifiers. These jobs have not been run on project data.
 
 The assignment's 40 GiB estimate is not verified. Final capacity planning will use observed sizes, compression, and intermediate storage needs. The server has only about 848 MiB RAM; if useful jobs cannot run within that limit, another host or a suitable processing strategy will be needed, followed by a measured scale experiment.
 

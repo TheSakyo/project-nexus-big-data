@@ -15,6 +15,7 @@ Projet pédagogique de traitement de données de Nexus Interactive avec Hadoop e
 - Squelette Maven prêt avec Maven Wrapper ; configuration Hadoop versionnée dans `config/hadoop/`.
 - Le téléchargement des données est en cours dans un dossier distinct du dépôt.
 - Les sources et leurs volumes seront inventoriés après confirmation de la fin du téléchargement.
+- Les jobs Java MapReduce pour DAU/WAU, rétention et incidents techniques sont préparés ; aucune sortie n’a été calculée sur les données du projet.
 - Hadoop 3.5.0, HDFS et YARN sont installés et démarrés sur le serveur Linux `turing-server` ; le test WordCount de bout en bout a réussi sur des données synthétiques.
 - Les zones HDFS `/datalake/raw`, `/datalake/processed` et `/datalake/analytics` sont créées.
 - Les outils multiplateformes d’inventaire et de gestion du cluster sont disponibles dans `scripts/nexus.py`.
