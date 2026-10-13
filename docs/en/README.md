@@ -26,6 +26,7 @@ Analytical findings will only be documented after they have been run and verifie
 - [Full project plan](PLAN.md)
 - [Environment status](ENVIRONMENT.md)
 - [Preparation during download](PREPARATION.md)
+- [Official data catalog](DATA_CATALOG.md)
 - [Data catalog template](DATA_CATALOG_TEMPLATE.md)
 - [Final report template](REPORT_TEMPLATE.md)
 - [10-minute defense outline](PRESENTATION_OUTLINE.md)

@@ -45,6 +45,6 @@ Les 40 Gio annoncés dans le sujet sont une estimation. Le dimensionnement final
 
 ## Travail dépendant des données
 
-Les formats, colonnes, règles de validation, date d’activité, clés de jointure, analyses métier et jobs MapReduce définitifs ne sont pas inventés à l’avance. Ils seront déterminés à partir du catalogue et des fichiers reçus. Le dépôt ne contient pas encore `docs/DATA_CATALOG.md`.
+Le catalogue officiel est disponible dans `D:\gdau8rrtb2czlzgbh4uocjqb.51.75.28.54.sslip.io\DATA_CATALOG.md`. Sa copie de référence dans le dépôt est [Catalogue des données](DATA_CATALOG.md). Il décrit déjà les sources, schémas annoncés, clés de jointure, événements et problèmes de qualité attendus. Cela permet de préparer les traitements et les analyses.
 
-Le [modèle de catalogue](DATA_CATALOG_TEMPLATE.md) est prêt à être rempli après observation des sources.
+L’inventaire après téléchargement reste nécessaire pour confirmer les fichiers, formats, volumes et écarts réels par rapport au catalogue. Le [modèle de catalogue](DATA_CATALOG_TEMPLATE.md) sert à consigner les observations faites sur les fichiers livrés ; il ne remplace pas le catalogue officiel.

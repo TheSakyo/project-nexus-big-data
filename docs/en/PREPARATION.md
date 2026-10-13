@@ -45,6 +45,6 @@ The assignment's 40 GiB estimate is not verified. Final capacity planning will u
 
 ## Work that depends on the data
 
-Formats, columns, validation rules, activity timestamp, join keys, business analyses, and final MapReduce jobs must not be guessed. They will be decided from the catalog and delivered files. The repository does not yet contain `docs/DATA_CATALOG.md`.
+The official catalog is available at `D:\gdau8rrtb2czlzgbh4uocjqb.51.75.28.54.sslip.io\DATA_CATALOG.md`. Its repository copy is the [Data Catalog](DATA_CATALOG.md). It already describes the announced sources, schemas, join keys, events, and expected quality issues. This is enough to prepare processing and analysis designs.
 
-The [data catalog template](DATA_CATALOG_TEMPLATE.md) is ready to fill in after source inspection.
+The post-download inventory is still needed to confirm the actual files, formats, volumes, and discrepancies from the catalog. Use the [data catalog template](DATA_CATALOG_TEMPLATE.md) to record observations made against delivered files; it does not replace the official catalog.

@@ -17,7 +17,7 @@
 
 ## 2. Données et provenance
 
-- Références au [catalogue des données](DATA_CATALOG_TEMPLATE.md) complété.
+- Références au [catalogue officiel](DATA_CATALOG.md) et au [catalogue d’observations](DATA_CATALOG_TEMPLATE.md) complété.
 - Inventaire : chemins logiques, formats, tailles, période et partitions.
 - Provenance, limites d’accès, données sensibles et règles de conservation.
 - Écarts au manifeste ou au catalogue.

@@ -15,6 +15,7 @@ Project Nexus is an educational Big Data project using Hadoop and Java MapReduce
 | [Environment status](docs/en/ENVIRONMENT.md) | Workstation and Hadoop cluster setup and verified state. |
 | [Preparation guide](docs/en/PREPARATION.md) | Cross-platform tools and steps to take after the download completes. |
 | [Data catalog template](docs/en/DATA_CATALOG_TEMPLATE.md) | Record observed schemas, quality rules, and join keys. |
+| [Official data catalog](docs/en/DATA_CATALOG.md) | Announced sources, schemas, join keys, metrics, and quality risks. |
 | [Report template](docs/en/REPORT_TEMPLATE.md) | Structure for the final report, including quality, analyses, and scale measurements. |
 | [Defense outline](docs/en/PRESENTATION_OUTLINE.md) | Suggested 10-minute presentation structure per student. |
 
@@ -38,6 +39,7 @@ The Python utility only supports inventory and cluster management. Assessed data
 | [État de l’environnement](docs/fr/ENVIRONMENT.md) | Poste de travail, cluster Hadoop et vérifications réalisées. |
 | [Guide de préparation](docs/fr/PREPARATION.md) | Outils multiplateformes et étapes après la fin du téléchargement. |
 | [Modèle de catalogue des données](docs/fr/DATA_CATALOG_TEMPLATE.md) | Consigner les schémas observés, les règles de qualité et les clés de jointure. |
+| [Catalogue officiel des données](docs/fr/DATA_CATALOG.md) | Sources, schémas annoncés, clés de jointure, indicateurs et risques qualité. |
 | [Trame du rapport](docs/fr/REPORT_TEMPLATE.md) | Structure du rapport final, de la qualité aux mesures d’échelle. |
 | [Déroulé de soutenance](docs/fr/PRESENTATION_OUTLINE.md) | Proposition de présentation de 10 minutes par étudiant. |
 
@@ -53,7 +55,7 @@ L’outil Python sert uniquement à l’inventaire et à la gestion du cluster. 
 ## Current project status / État actuel
 
 - Hadoop 3.5.0, HDFS, and YARN are installed on the preparation server; a synthetic WordCount smoke job succeeded. / Hadoop 3.5.0, HDFS et YARN sont installés sur le serveur de préparation ; un test WordCount synthétique a réussi.
-- The real dataset is still downloading. Do not inspect, move, or ingest it until the user confirms completion. / Le dataset réel est toujours en cours de téléchargement. Ne pas l’inspecter, le déplacer ou l’ingérer avant confirmation de la fin.
+- The real dataset is still downloading. Do not inspect, move, or ingest its data files until the user confirms completion. The official catalog has been reviewed separately. / Le dataset réel est toujours en cours de téléchargement. Ne pas inspecter, déplacer ou ingérer ses fichiers de données avant confirmation de la fin. Le catalogue officiel a été consulté séparément.
 - No real-data results have been produced. / Aucun résultat sur les données réelles n’a encore été produit.
 
 Keep datasets, credentials, and generated local inventory reports out of Git. See the language-specific guides for details.

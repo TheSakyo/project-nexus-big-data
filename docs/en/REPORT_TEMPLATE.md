@@ -17,7 +17,7 @@
 
 ## 2. Data and provenance
 
-- Reference the completed [data catalog](DATA_CATALOG_TEMPLATE.md).
+- Reference the [official catalog](DATA_CATALOG.md) and completed [observed-data catalog](DATA_CATALOG_TEMPLATE.md).
 - Inventory: logical paths, formats, sizes, period, and partitions.
 - Provenance, access limits, sensitive data, and retention rules.
 - Differences from the delivered manifest or catalog.
