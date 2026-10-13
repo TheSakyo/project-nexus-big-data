@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://127.0.0.1:9000</value>
+        <description>Single-node HDFS endpoint, bound to the virtual machine.</description>
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/home/turinguser/nexus-hadoop-data/tmp</value>
+    </property>
+</configuration>

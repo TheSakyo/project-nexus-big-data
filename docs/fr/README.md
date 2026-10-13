@@ -1,0 +1,39 @@
+# Project Nexus — Big Data
+
+Projet pédagogique de traitement de données de Nexus Interactive avec Hadoop et Java MapReduce.
+
+## Objectifs
+
+- conserver les sources originales dans une zone `RAW` ;
+- nettoyer et préparer les données dans `PROCESSED` ;
+- produire les indicateurs dans `ANALYTICS` ;
+- implémenter au moins deux traitements Java MapReduce significatifs, dont un croisement de sources ;
+- documenter les contrôles de qualité, les résultats, les limites et une mesure de passage à l’échelle.
+
+## État actuel
+
+- Squelette Maven prêt avec Maven Wrapper ; configuration Hadoop versionnée dans `config/hadoop/`.
+- Le téléchargement des données est en cours dans un dossier distinct du dépôt.
+- Les sources et leurs volumes seront inventoriés après confirmation de la fin du téléchargement.
+- Hadoop 3.5.0, HDFS et YARN sont installés et démarrés sur le serveur Linux `turing-server` ; le test WordCount de bout en bout a réussi sur des données synthétiques.
+- Les zones HDFS `/datalake/raw`, `/datalake/processed` et `/datalake/analytics` sont créées.
+- Les outils multiplateformes d’inventaire et de gestion du cluster sont disponibles dans `scripts/nexus.py`.
+
+Les résultats analytiques ne seront documentés qu’après exécution et vérification sur les données réelles.
+
+## Guides
+
+- [Plan complet](PLAN.md)
+- [État de l’environnement](ENVIRONMENT.md)
+- [Préparation pendant le téléchargement](PREPARATION.md)
+- [Modèle de catalogue de données](DATA_CATALOG_TEMPLATE.md)
+
+## Installation et exécution
+
+Le build utilise le Maven Wrapper : `./mvnw` sous Linux/macOS/WSL ou `mvnw.cmd` sous Windows. Le projet produit des classes Java 17, compatibles avec les services Hadoop retenus.
+
+Le cluster de préparation ne dispose que d’environ 848 Mio de RAM. Ses paramètres YARN et MapReduce conviennent aux petits essais ; la capacité pour les traitements réels sera évaluée à partir de l’inventaire du dataset.
+
+## Données et secrets
+
+Ne pas ajouter de données brutes, mots de passe, jetons ou exports volumineux au dépôt. Conserver les identifiants localement et documenter leur utilisation sans inclure leurs valeurs.
