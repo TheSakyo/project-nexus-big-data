@@ -15,6 +15,8 @@ Project Nexus is an educational Big Data project using Hadoop and Java MapReduce
 | [Environment status](docs/en/ENVIRONMENT.md) | Workstation and Hadoop cluster setup and verified state. |
 | [Preparation guide](docs/en/PREPARATION.md) | Cross-platform tools and steps to take after the download completes. |
 | [Data catalog template](docs/en/DATA_CATALOG_TEMPLATE.md) | Record observed schemas, quality rules, and join keys. |
+| [Report template](docs/en/REPORT_TEMPLATE.md) | Structure for the final report, including quality, analyses, and scale measurements. |
+| [Defense outline](docs/en/PRESENTATION_OUTLINE.md) | Suggested 10-minute presentation structure per student. |
 
 ### Quick start
 
@@ -36,6 +38,8 @@ The Python utility only supports inventory and cluster management. Assessed data
 | [État de l’environnement](docs/fr/ENVIRONMENT.md) | Poste de travail, cluster Hadoop et vérifications réalisées. |
 | [Guide de préparation](docs/fr/PREPARATION.md) | Outils multiplateformes et étapes après la fin du téléchargement. |
 | [Modèle de catalogue des données](docs/fr/DATA_CATALOG_TEMPLATE.md) | Consigner les schémas observés, les règles de qualité et les clés de jointure. |
+| [Trame du rapport](docs/fr/REPORT_TEMPLATE.md) | Structure du rapport final, de la qualité aux mesures d’échelle. |
+| [Déroulé de soutenance](docs/fr/PRESENTATION_OUTLINE.md) | Proposition de présentation de 10 minutes par étudiant. |
 
 ### Démarrage rapide
 

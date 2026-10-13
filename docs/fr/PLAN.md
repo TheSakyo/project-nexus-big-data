@@ -18,7 +18,7 @@ Le téléchargement des données est en cours hors du dépôt. Ne pas lire, dép
 | 6. Traitements MapReduce | Construire au moins deux jobs Java significatifs et reproductibles. | Jobs exécutables avec entrées/sorties explicites et résultats vérifiés. |
 | 7. Analyses et jointures | Étudier activité/rétention, choisir un axe métier après inspection, croiser au moins deux sources et mener une exploration libre. | Définitions, populations, fenêtres, résultats, limites et confiance documentés. |
 | 8. Passage à l’échelle | Fixer une limite mémoire Java, dépasser cette limite en volume, relever compteurs et journaux Hadoop. | Volume, limite, durée et indicateurs consignés ; aucune performance sans mesure. |
-| 9. Livrables | Finaliser README, scripts, configuration, résultats vérifiés, rapport et présentation. | Une autre personne peut reproduire le parcours et comprendre les recommandations. |
+| 9. Livrables | Finaliser README, scripts, configuration, résultats vérifiés, rapport et présentation. | Trames prêtes dans [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) et [PRESENTATION_OUTLINE.md](PRESENTATION_OUTLINE.md) ; une autre personne peut reproduire le parcours et comprendre les recommandations. |
 
 Les préparations indépendantes des données sont faites : Maven Wrapper, configuration Hadoop, outil Python d’inventaire et de gestion du cluster. Voir [PREPARATION.md](PREPARATION.md).
 

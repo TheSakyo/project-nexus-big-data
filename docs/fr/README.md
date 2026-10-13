@@ -27,6 +27,8 @@ Les résultats analytiques ne seront documentés qu’après exécution et véri
 - [État de l’environnement](ENVIRONMENT.md)
 - [Préparation pendant le téléchargement](PREPARATION.md)
 - [Modèle de catalogue de données](DATA_CATALOG_TEMPLATE.md)
+- [Trame du rapport final](REPORT_TEMPLATE.md)
+- [Déroulé de soutenance de 10 minutes](PRESENTATION_OUTLINE.md)
 
 ## Installation et exécution
 

@@ -18,7 +18,7 @@ The dataset is downloading outside the repository. Do not read, move, rename, or
 | 6. MapReduce jobs | Build at least two meaningful, reproducible Java jobs. | Jobs run with explicit inputs and outputs and verified results. |
 | 7. Analysis and joins | Study activity/retention, choose a business question after inspection, join at least two sources, and perform open-ended exploration. | Definitions, populations, windows, results, limitations, and confidence are documented. |
 | 8. Scalability | Set a Java memory limit, process more data than that limit, and record Hadoop counters and logs. | Volume, limit, duration, and metrics are recorded; no performance claims without measurement. |
-| 9. Deliverables | Finalize README, scripts, configuration, verified results, report, and presentation. | Another person can reproduce the workflow and understand the recommendations. |
+| 9. Deliverables | Finalize README, scripts, configuration, verified results, report, and presentation. | Templates are ready in [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) and [PRESENTATION_OUTLINE.md](PRESENTATION_OUTLINE.md); another person can reproduce the workflow and understand the recommendations. |
 
 Dataset-independent preparation is complete: Maven Wrapper, Hadoop configuration, and the Python inventory/cluster tool. See [PREPARATION.md](PREPARATION.md).
 
