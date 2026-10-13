@@ -12,7 +12,7 @@ Le téléchargement des données est en cours hors du dépôt. Ne pas lire, dép
 |---|---|---|
 | 1. État des lieux | Examiner le dépôt, les consignes, Java, Maven, Docker/Compose, WSL et les possibilités Hadoop. | L’état est décrit et les changements Git préexistants sont préservés. |
 | 2. Inventaire des données | Après confirmation, relever fichiers, formats, volumes, partitions, fichiers vides et erreurs ; comparer au catalogue officiel. | Outil Python prêt (`python scripts/nexus.py inventory`) ; inventaire réel et écarts établis. |
-| 3. Choix d’environnement | Comparer les options disponibles selon mémoire, stockage, réseau et compatibilité Hadoop/Java. | Préparé : serveur Debian `turing-server`, Hadoop 3.5.0, Java serveur 17 et smoke test HDFS/YARN/MapReduce réussi. |
+| 3. Choix d’environnement | Comparer les options disponibles selon mémoire, stockage, réseau et compatibilité Hadoop/Java. | Environnement local du mainteneur : Debian sous WSL, Hadoop 3.5.0, Java 17 et smoke test HDFS/YARN/MapReduce réussi. Il n’est pas partagé. |
 | 4. Data lake et ingestion | Définir les zones `RAW`, `PROCESSED`, `ANALYTICS` ; préparer une ingestion relançable qui conserve les originaux. | Chaque lot est traçable ; `RAW` reste inchangé par les traitements. |
 | 5. Qualité et préparation | Définir les règles à partir des vrais schémas : champs manquants, dates, formats, doublons et identifiants ; compter rejets et normalisations. | Les sorties `PROCESSED` ont des contrôles et règles documentés. |
 | 6. Traitements MapReduce | Normaliser les schémas télémétriques annoncés ; produire les joueurs actifs/jour, DAU/WAU, la rétention Dn et l’analyse technique jointe aux profils. | Jobs Java présents et compilables ; exécutions et résultats réels à confirmer après inventaire. |
@@ -53,7 +53,7 @@ Piste candidate : abandon (`level_abandon` ou `match_end.outcome=abandon`) selon
 
 ## Décisions en attente
 
-- L’environnement de préparation est fixé à Hadoop 3.5.0 sur `turing-server`, en mode pseudo-distribué mono-nœud ; ce n’est pas une capacité de production.
+- L’environnement de préparation du mainteneur utilise Hadoop 3.5.0 sous WSL, en mode pseudo-distribué mono-nœud ; l’alias `turing-server` est local et cet environnement n’est pas partagé. Ce n’est pas une capacité de production.
 - Chemin physique et stratégie d’ingestion à décider après confirmation du téléchargement.
 - Les zones HDFS `/datalake/raw`, `/datalake/processed` et `/datalake/analytics` existent ; le partitionnement reste à définir selon les sources.
 - Concordance des fichiers livrés avec les formats et variantes annoncés dans le catalogue ; les snapshots joueurs JSONL sont requis par les jobs préparés.

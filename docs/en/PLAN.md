@@ -12,7 +12,7 @@ The dataset is downloading outside the repository. Do not read, move, rename, or
 |---|---|---|
 | 1. Baseline | Review the repository, assignment, Java, Maven, Docker/Compose, WSL, and Hadoop options. | Current state is documented and pre-existing Git changes are preserved. |
 | 2. Data inventory | After confirmation, record files, formats, sizes, partitions, empty files, and errors; compare against the official catalog. | Python tool is ready (`python scripts/nexus.py inventory`); the real inventory and discrepancies are established. |
-| 3. Environment | Compare available options by memory, storage, network, and Hadoop/Java compatibility. | Prepared: Debian `turing-server`, Hadoop 3.5.0, server Java 17, and a successful HDFS/YARN/MapReduce smoke job. |
+| 3. Environment | Compare available options by memory, storage, network, and Hadoop/Java compatibility. | Maintainer's local environment: Debian under WSL, Hadoop 3.5.0, Java 17, and a successful HDFS/YARN/MapReduce smoke job. It is not shared. |
 | 4. Data lake and ingestion | Define `RAW`, `PROCESSED`, and `ANALYTICS`; prepare restartable ingestion that preserves originals. | Every batch is traceable; processing never changes `RAW`. |
 | 5. Quality and preparation | Define rules from observed schemas: missing fields, dates, formats, duplicates, and identifiers; count rejects and normalizations. | `PROCESSED` outputs have documented checks and rules. |
 | 6. MapReduce jobs | Normalize announced telemetry schemas; produce daily active players, DAU/WAU, Dn retention, and profile-joined technical analysis. | Java jobs are present and compile; real executions and results remain to be confirmed after inventory. |
@@ -53,7 +53,7 @@ Candidate: abandonment (`level_abandon` or `match_end.outcome=abandon`) by map, 
 
 ## Decisions still pending
 
-- The preparation environment is Hadoop 3.5.0 on `turing-server` in single-node pseudo-distributed mode; this is not production capacity.
+- The maintainer's preparation environment uses Hadoop 3.5.0 under WSL in single-node pseudo-distributed mode; the `turing-server` alias is local and this environment is not shared. This is not production capacity.
 - Select the physical source path and ingestion strategy after the user confirms the download is complete.
 - HDFS zones `/datalake/raw`, `/datalake/processed`, and `/datalake/analytics` exist; internal partitioning depends on the observed sources.
 - Check delivered files against the catalog's formats and schema variants; the prepared jobs require player JSONL snapshots.

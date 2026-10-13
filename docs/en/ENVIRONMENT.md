@@ -11,11 +11,13 @@ Status recorded on October 13, 2026.
 | WSL `debian-default` | Debian 13, OpenJDK 21.0.12, Maven 3.9.9 | Linux build environment is ready. |
 | Docker Desktop | CLI installed; engine was stopped at the time of inspection | Not used for Hadoop. |
 
+A Docker Compose Hadoop setup is now included at the repository root. It has not been started or verified in this session; Docker Engine must be running to build and start it.
+
 The C: system drive lost free space during WSL installations and downloads. Avoid downloading or extracting Hadoop or the dataset there. The dataset directory is separate from the repository and must not be accessed before the user confirms the download is complete.
 
-## Hadoop preparation cluster
+## Maintainer's local Hadoop cluster
 
-A Debian server reachable through the `turing-server` SSH alias was selected to preserve space on the Windows/WSL workstation.
+The Debian cluster runs in the maintainer's local WSL environment. `turing-server` is their personal SSH alias to that environment; it is not a shared remote server and collaborators cannot use it as-is.
 
 | Component | Status |
 |---|---|

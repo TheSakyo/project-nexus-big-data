@@ -1,0 +1,36 @@
+services:
+  hadoop:
+    build:
+      context: .
+      dockerfile: docker/hadoop/Dockerfile
+      args:
+        HADOOP_VERSION: "3.5.0"
+    image: project-nexus-hadoop:3.5.0
+    hostname: nexus-hadoop
+    environment:
+      JAVA_HOME: /opt/java/openjdk
+      HADOOP_HOME: /opt/hadoop-3.5.0
+      HADOOP_CONF_DIR: /opt/nexus-hadoop-conf
+      HADOOP_MAPRED_HOME: /opt/hadoop-3.5.0
+      HADOOP_USER_NAME: nexus
+      HADOOP_LOG_DIR: /data/hadoop/logs
+      HADOOP_PID_DIR: /tmp/hadoop-pids
+    ports:
+      - "127.0.0.1:9870:9870"
+      - "127.0.0.1:8088:8088"
+    volumes:
+      - hadoop_data:/data/hadoop
+      - .:/workspace:ro
+    mem_limit: ${NEXUS_HADOOP_MEMORY_LIMIT:-6g}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - hdfs dfsadmin -report >/dev/null 2>&1 && yarn node -list 2>/dev/null | grep -q RUNNING
+      interval: 10s
+      timeout: 8s
+      retries: 18
+      start_period: 90s
+    stop_grace_period: 30s
+
+volumes:
+  hadoop_data:

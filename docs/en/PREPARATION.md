@@ -22,6 +22,10 @@ SHA-256 reads every byte and may take a while for tens of GiB; it is optional. A
 
 ## Managing the preparation cluster
 
+This section applies only to the maintainer's local WSL environment. The `turing-server` alias is not provided to collaborators. See the [installation and execution guide](EXECUTION.md) for the current SSH mode and its limitations.
+
+To start the local Docker cluster, use `python scripts/nexus.py cluster start --backend compose`, then `cluster status --backend compose`. Analysis commands must also include `--backend compose`. The [Installation and execution guide](EXECUTION.md) covers data import, HDFS persistence, and stopping the container.
+
 Python and the OpenSSH client (`ssh` and `scp`) must be available. The `turing-server` SSH alias can be overridden with `--target`, which must point to the same server configured for this project:
 
 ```sh
@@ -58,12 +62,12 @@ Package the JAR without running tests:
 python scripts/nexus.py build
 ```
 
-The following commands submit jobs to `turing-server` over SSH. Input paths must already exist in HDFS. Work and output paths must be new for each run; the script refuses to overwrite an existing output. Replace dates with boundaries established during inventory.
+Without a backend option, the following commands use the maintainer's `turing-server` SSH alias. To run the same pipelines in the local Docker cluster, add `--backend compose`. Input paths must already exist in HDFS. Work and output paths must be new for each run; the script refuses to overwrite an existing output. Replace dates with boundaries established during inventory.
 
 DAU and rolling seven-day UTC WAU:
 
 ```sh
-python scripts/nexus.py job activity \
+python scripts/nexus.py job activity --backend compose \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-activity-001 \
   --output /datalake/analytics/activity-001 \
@@ -73,7 +77,7 @@ python scripts/nexus.py job activity \
 Dn retention with weekly cohorts based on `players.created_at`:
 
 ```sh
-python scripts/nexus.py job retention \
+python scripts/nexus.py job retention --backend compose \
   --players /datalake/raw/mongo/players \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-retention-001 \
@@ -86,7 +90,7 @@ python scripts/nexus.py job retention \
 Technical incidents joined to player profiles:
 
 ```sh
-python scripts/nexus.py job technical \
+python scripts/nexus.py job technical --backend compose \
   --players /datalake/raw/mongo/players \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-technical-001 \

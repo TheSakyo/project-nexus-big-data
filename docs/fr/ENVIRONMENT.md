@@ -11,11 +11,13 @@
 | WSL `debian-default` | Debian 13, OpenJDK 21.0.12 et Maven 3.9.9 | Environnement Linux de build déjà prêt. |
 | Docker Desktop | CLI installée, moteur arrêté lors du relevé | Non utilisé pour Hadoop. |
 
+Une configuration Hadoop Docker Compose est maintenant présente à la racine du dépôt. Elle n’a pas été démarrée ni vérifiée dans cette session ; le moteur Docker doit être actif pour la construire et la lancer.
+
 Le disque système C: a diminué pendant les installations et téléchargements WSL. Éviter d’y télécharger ou d’y extraire Hadoop et le jeu de données. Le répertoire du jeu de données est séparé du dépôt et ne doit pas être utilisé avant confirmation de la fin du téléchargement.
 
-## Cluster Hadoop de préparation
+## Cluster Hadoop local du mainteneur
 
-Un serveur Debian accessible par l’alias SSH `turing-server` a été retenu afin de préserver l’espace du poste Windows/WSL.
+Le cluster Debian tourne dans l’environnement WSL local du mainteneur. `turing-server` est son alias SSH personnel vers cet environnement ; ce n’est pas un serveur distant partagé et les collaborateurs ne peuvent pas l’utiliser tel quel.
 
 | Composant | État |
 |---|---|

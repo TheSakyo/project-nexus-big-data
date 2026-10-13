@@ -1,0 +1,5 @@
+export JAVA_HOME="${JAVA_HOME:-/opt/java/openjdk}"
+export HADOOP_LOG_DIR="${HADOOP_LOG_DIR:-/data/hadoop/logs}"
+export HADOOP_PID_DIR="${HADOOP_PID_DIR:-/tmp/hadoop-pids}"
+export HADOOP_NAMENODE_OPTS="${HADOOP_NAMENODE_OPTS:--Xms256m -Xmx512m}"
+export HADOOP_DATANODE_OPTS="${HADOOP_DATANODE_OPTS:--Xms128m -Xmx384m}"

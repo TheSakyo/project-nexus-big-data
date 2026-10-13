@@ -22,6 +22,10 @@ Le calcul SHA-256 relit chaque octet et peut prendre du temps sur plusieurs diza
 
 ## Gestion du cluster de préparation
 
+Cette section concerne uniquement l’environnement WSL local du mainteneur. L’alias `turing-server` n’est pas fourni aux collaborateurs. Le mode SSH actuel et ses limites sont détaillés dans le [guide d’installation et d’exécution](EXECUTION.md).
+
+Pour démarrer le cluster Docker local, utiliser plutôt `python scripts/nexus.py cluster start --backend compose`, puis `cluster status --backend compose`. Les commandes d’analyse doivent recevoir `--backend compose`. Le guide [Installation et exécution](EXECUTION.md) décrit l’import des données, la persistance HDFS et l’arrêt du conteneur.
+
 Python et le client OpenSSH (`ssh` et `scp`) doivent être disponibles. L’alias SSH `turing-server` peut être remplacé avec `--target`, qui doit désigner le même serveur configuré pour le projet :
 
 ```sh
@@ -58,12 +62,12 @@ Construire le JAR sans lancer de tests :
 python scripts/nexus.py build
 ```
 
-Les commandes suivantes soumettent les jobs sur le serveur `turing-server` par SSH. Les chemins doivent déjà exister dans HDFS pour les entrées. Les chemins de travail et de sortie doivent être nouveaux à chaque exécution ; le script refuse d’écraser une sortie existante. Remplacer chaque date par les bornes déterminées lors de l’inventaire.
+Sans option de backend, les commandes suivantes utilisent l’alias SSH du mainteneur `turing-server`. Pour exécuter ces mêmes pipelines dans le cluster Docker local, ajouter `--backend compose`. Les chemins doivent déjà exister dans HDFS pour les entrées. Les chemins de travail et de sortie doivent être nouveaux à chaque exécution ; le script refuse d’écraser une sortie existante. Remplacer chaque date par les bornes déterminées lors de l’inventaire.
 
 DAU et WAU glissant sur sept jours UTC :
 
 ```sh
-python scripts/nexus.py job activity \
+python scripts/nexus.py job activity --backend compose \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-activity-001 \
   --output /datalake/analytics/activity-001 \
@@ -73,7 +77,7 @@ python scripts/nexus.py job activity \
 Rétention Dn, cohortes hebdomadaires basées sur `players.created_at` :
 
 ```sh
-python scripts/nexus.py job retention \
+python scripts/nexus.py job retention --backend compose \
   --players /datalake/raw/mongo/players \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-retention-001 \
@@ -86,7 +90,7 @@ python scripts/nexus.py job retention \
 Incidents techniques joints au profil du joueur :
 
 ```sh
-python scripts/nexus.py job technical \
+python scripts/nexus.py job technical --backend compose \
   --players /datalake/raw/mongo/players \
   --telemetry /datalake/raw/telemetry \
   --work /datalake/processed/run-technical-001 \

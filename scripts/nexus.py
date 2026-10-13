@@ -123,16 +123,19 @@ def create_inventory(args: argparse.Namespace) -> None:
         raise RuntimeError("The inventory is incomplete. Resolve the errors before using the report.")
 
 
-def run_command(command: list[str]) -> None:
+def run_command(command: list[str], cwd: Path | None = None) -> None:
     try:
-        subprocess.run(command, check=True)
+        subprocess.run(command, check=True, cwd=cwd)
     except FileNotFoundError as error:
         executable = command[0]
-        raise RuntimeError(
-            f"Command not found: {executable}. Python and the OpenSSH client (ssh/scp) must be available."
-        ) from error
+        raise RuntimeError(f"Command not found: {executable}.") from error
     except subprocess.CalledProcessError as error:
         raise RuntimeError(f"Command failed with exit code {error.returncode}: {' '.join(command)}") from error
+
+
+def run_compose_command(arguments: list[str]) -> None:
+    """Run Docker Compose from the repository root, independent of the caller's working directory."""
+    run_command(["docker", "compose", *arguments], cwd=PROJECT_ROOT)
 
 
 def run_remote(target: str, command: str) -> None:
@@ -140,6 +143,17 @@ def run_remote(target: str, command: str) -> None:
 
 
 def manage_cluster(args: argparse.Namespace) -> None:
+    if args.backend == "compose":
+        if args.action == "start":
+            run_compose_command(
+                ["up", "--detach", "--build", "--wait", "--wait-timeout", "180", "hadoop"]
+            )
+        elif args.action == "stop":
+            run_compose_command(["stop", "hadoop"])
+        else:
+            run_compose_command(["ps", "--all", "hadoop"])
+        return
+
     target = args.target
 
     if args.action == "start":
@@ -209,6 +223,37 @@ def remote_job_command(target: str, class_name: str, arguments: list[str], outpu
     run_remote(target, remote)
 
 
+def compose_path_exists(path: str) -> bool:
+    """Check an HDFS path in the Compose cluster without treating a missing path as a command failure."""
+    command = ["docker", "compose", "exec", "-T", "hadoop", "hdfs", "dfs", "-test", "-e", path]
+    result = subprocess.run(command, cwd=PROJECT_ROOT, capture_output=True, text=True, check=False)
+    if result.returncode == 0:
+        return True
+    if result.returncode == 1:
+        return False
+    detail = (result.stderr or result.stdout).strip()
+    raise RuntimeError(
+        f"Could not check HDFS path {path!r} in the Compose cluster: "
+        f"{detail or f'exit code {result.returncode}'}"
+    )
+
+
+def compose_job_command(class_name: str, arguments: list[str]) -> None:
+    """Submit one MapReduce stage to the local Hadoop container."""
+    run_compose_command(
+        [
+            "exec",
+            "-T",
+            "hadoop",
+            "hadoop",
+            "jar",
+            "/workspace/target/JavaHadoop-1.0-SNAPSHOT.jar",
+            class_name,
+            *arguments,
+        ]
+    )
+
+
 def run_job(args: argparse.Namespace) -> None:
     target = args.target
     steps: list[tuple[str, list[str], list[str]]] = []
@@ -268,6 +313,16 @@ def run_job(args: argparse.Namespace) -> None:
 
     if not JOB_JAR.is_file():
         raise FileNotFoundError(f"Job JAR not found: {JOB_JAR}. Run 'python scripts/nexus.py build' first.")
+
+    if args.backend == "compose":
+        run_compose_command(["exec", "-T", "hadoop", "hdfs", "dfsadmin", "-report"])
+        for path in planned_outputs:
+            if compose_path_exists(path):
+                raise ValueError(f"Output already exists: {path}")
+        for class_name, arguments, _ in steps:
+            compose_job_command(class_name, arguments)
+        return
+
     run_remote(target, f"mkdir -p {shlex.quote(REMOTE_JOB_DIRECTORY)}")
     run_command(["scp", str(JOB_JAR), f"{target}:{REMOTE_JAR}"])
     for class_name, arguments, outputs in steps:
@@ -286,6 +341,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     cluster_parser = commands.add_parser("cluster", help="start, stop, or check the Hadoop cluster")
     cluster_parser.add_argument("action", choices=("status", "start", "stop"))
+    cluster_parser.add_argument(
+        "--backend", choices=("ssh", "compose"), default="ssh", help="cluster access mode"
+    )
     cluster_parser.add_argument("--target", default=DEFAULT_SSH_TARGET, help="SSH alias for the configured project server")
     cluster_parser.set_defaults(handler=manage_cluster)
 
@@ -301,6 +359,9 @@ def build_parser() -> argparse.ArgumentParser:
     job_parser.add_argument("--players", help="HDFS path containing MongoDB players JSONL for technical analysis")
     job_parser.add_argument("--as-of-date", help="last fully observed UTC date, required for retention")
     job_parser.add_argument("--max-day", type=int, help="maximum Dn retention offset to compute (0..90)")
+    job_parser.add_argument(
+        "--backend", choices=("ssh", "compose"), default="ssh", help="job execution mode"
+    )
     job_parser.add_argument("--target", default=DEFAULT_SSH_TARGET, help="SSH alias for the configured project server")
     job_parser.set_defaults(handler=run_job)
 

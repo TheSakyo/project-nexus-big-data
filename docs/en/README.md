@@ -16,7 +16,7 @@ An educational project for processing Nexus Interactive data with Hadoop and Jav
 - The dataset is still downloading to a directory outside the repository.
 - Sources and sizes will be inventoried after the user confirms the download is complete.
 - Java MapReduce jobs for DAU/WAU, retention, and technical incidents are prepared; no project-data outputs have been calculated.
-- Hadoop 3.5.0, HDFS, and YARN are installed and running on the `turing-server` Linux host; an end-to-end WordCount smoke job succeeded on synthetic data.
+- Hadoop 3.5.0, HDFS, and YARN are installed in the maintainer's local WSL Linux environment, reachable through their `turing-server` SSH alias; an end-to-end WordCount smoke job succeeded on synthetic data. This alias is not shared with collaborators.
 - HDFS zones `/datalake/raw`, `/datalake/processed`, and `/datalake/analytics` have been created.
 - Cross-platform inventory and cluster-management tools are available in `scripts/nexus.py`.
 
@@ -24,6 +24,7 @@ Analytical findings will only be documented after they have been run and verifie
 
 ## Guides
 
+- [Cross-platform installation and execution](EXECUTION.md)
 - [Full project plan](PLAN.md)
 - [Environment status](ENVIRONMENT.md)
 - [Preparation during download](PREPARATION.md)
