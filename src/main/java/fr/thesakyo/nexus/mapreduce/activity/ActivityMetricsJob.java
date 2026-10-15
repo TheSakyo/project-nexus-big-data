@@ -187,7 +187,7 @@ public final class ActivityMetricsJob {
             }
     }
 
-// ============================================================================
+    // ============================================================================
 
     /**
      * Deduplicates repeated player memberships within a given day or WAU window.
