@@ -30,6 +30,12 @@ Project Nexus is an educational Big Data project using Hadoop and Java MapReduce
 
 The Python utility handles inventory, cluster management, packaging, and job submission. Data processing and analysis are implemented in Java MapReduce on Hadoop. See the language-specific preparation guide for commands and metric definitions.
 
+### Project instructions
+
+- Original assignment (PDF, French): [Project brief](instructions/PROJECT_BRIEF.pdf).
+- French Markdown copy: [Project instructions](instructions/PROJECT_BIG_DATA_FR.md).
+- Source data catalog (English): [Instructions catalog](instructions/DATA_CATALOG.md).
+
 ### Prerequisites and execution modes
 
 - **Local build:** install a JDK 17 or newer and Python 3.9 or newer. The Maven Wrapper downloads and runs the configured Maven version, so a separate Maven installation is not required. WSL, Docker, and Hadoop are not required just to package the Java jobs.
@@ -64,6 +70,12 @@ The Python utility handles inventory, cluster management, packaging, and job sub
 
 L’outil Python gère l’inventaire, le build et la soumission des jobs ; les traitements et analyses sont développés en Java MapReduce sur Hadoop.
 
+### Consignes du projet
+
+- Sujet original (PDF, français) : [Sujet du projet](instructions/PROJECT_BRIEF.pdf).
+- Copie Markdown en français : [Consignes du projet](instructions/PROJECT_BIG_DATA_FR.md).
+- Catalogue source (anglais) : [Catalogue des consignes](instructions/DATA_CATALOG.md).
+
 ### Prérequis et modes d’exécution
 
 - **Construire le projet localement :** installer un JDK 17 ou plus récent et Python 3.9 ou plus récent. Le Maven Wrapper télécharge et lance la version Maven configurée ; une installation séparée de Maven n’est donc pas requise. WSL, Docker et Hadoop ne sont pas nécessaires pour compiler le JAR.
@@ -77,7 +89,7 @@ L’outil Python gère l’inventaire, le build et la soumission des jobs ; les 
 
 - Hadoop 3.5.0, HDFS, and YARN are installed in the maintainer's local WSL environment; a synthetic WordCount smoke job succeeded there. This environment is not shared with repository collaborators. / Hadoop 3.5.0, HDFS et YARN sont installés dans l’environnement WSL local du mainteneur ; un test WordCount synthétique y a réussi. Cet environnement n’est pas partagé avec les collaborateurs du dépôt.
 - Java MapReduce jobs for daily activity, retention, and profile-joined technical incidents are prepared. They have not been run on project data. / Les jobs Java MapReduce pour l’activité, la rétention et les incidents techniques joints aux profils sont préparés. Ils n’ont pas été exécutés sur les données du projet.
-- The real dataset is still downloading. Do not inspect, move, or ingest its data files until the user confirms completion. The official catalog has been reviewed separately. / Le dataset réel est toujours en cours de téléchargement. Ne pas inspecter, déplacer ou ingérer ses fichiers de données avant confirmation de la fin. Le catalogue officiel a été consulté séparément.
+- The complete dataset is stored locally under `data/source/` and is excluded from Git. It must be ingested into HDFS before real-data jobs can run. / Le dataset complet est stocké localement dans `data/source/` et exclu de Git. Il doit être ingéré dans HDFS avant l’exécution des jobs sur les données réelles.
 - No real-data results have been produced. / Aucun résultat sur les données réelles n’a encore été produit.
 
 Keep datasets, credentials, and generated local inventory reports out of Git. See the language-specific guides for details.
