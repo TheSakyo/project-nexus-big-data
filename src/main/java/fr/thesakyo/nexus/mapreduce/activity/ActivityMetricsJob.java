@@ -485,7 +485,7 @@ public final class ActivityMetricsJob {
          */
         final LocalDate startDate;
         try { startDate = LocalDate.parse(args[3]); }
-        catch (DateTimeParseException exception) {
+        catch(DateTimeParseException exception) {
             System.err.println("Observation start date must use YYYY-MM-DD.");
             System.exit(2);
             return;
