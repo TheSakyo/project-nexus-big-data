@@ -1,21 +1,21 @@
 # Plan de réalisation — Project Nexus
 
-Ce plan suit les exigences du sujet. Il s’appuie sur le [catalogue officiel des données](DATA_CATALOG.md) ; les fichiers réellement livrés, leurs volumes et les écarts au catalogue restent à vérifier après le téléchargement.
+Ce plan suit les exigences du sujet et le [catalogue officiel des données](DATA_CATALOG.md). Le téléchargement et l’inventaire sont terminés ; les contrôles approfondis de schéma et de qualité restent à effectuer.
 
 ## État et règle de travail
 
-Le téléchargement des données est en cours hors du dépôt. Ne pas lire, déplacer, renommer ou traiter les fichiers de données avant confirmation de sa fin. Le catalogue officiel `DATA_CATALOG.md`, distinct des données, a été consulté et copié dans le dépôt. Le code, les documents et la configuration se travaillent dans `D:\Workspaces\java-workspace\JavaHadoop`.
+Le dataset complet est dans `data/source/`, exclu de Git. L’inventaire local est enregistré dans `reports/local/`. Le catalogue officiel `DATA_CATALOG.md` a été consulté et copié dans le dépôt. Le code, les documents et la configuration se travaillent dans `D:\Workspaces\java-workspace\JavaHadoop`.
 
 ## Étapes et critères de sortie
 
 | Étape | Actions | Critère de sortie |
 |---|---|---|
 | 1. État des lieux | Examiner le dépôt, les consignes, Java, Maven, Docker/Compose, WSL et les possibilités Hadoop. | L’état est décrit et les changements Git préexistants sont préservés. |
-| 2. Inventaire des données | Après confirmation, relever fichiers, formats, volumes, partitions, fichiers vides et erreurs ; comparer au catalogue officiel. | Outil Python prêt (`python scripts/nexus.py inventory`) ; inventaire réel et écarts établis. |
-| 3. Choix d’environnement | Comparer les options disponibles selon mémoire, stockage, réseau et compatibilité Hadoop/Java. | Environnement local du mainteneur : Debian sous WSL, Hadoop 3.5.0, Java 17 et smoke test HDFS/YARN/MapReduce réussi. Il n’est pas partagé. |
+| 2. Inventaire des données | Relever fichiers, formats, volumes, partitions, fichiers vides et erreurs ; comparer au catalogue officiel. | Inventaire local terminé et manifestes comparés ; les règles de qualité détaillées restent à valider pendant le traitement. |
+| 3. Choix d’environnement | Comparer les options disponibles selon mémoire, stockage, réseau et compatibilité Hadoop/Java. | Environnement WSL vérifié sur un smoke test ; cluster Docker Compose Hadoop 3.5.0 déclaré healthy le 15 octobre 2026. Ces environnements locaux ne sont pas partagés. |
 | 4. Data lake et ingestion | Définir les zones `RAW`, `PROCESSED`, `ANALYTICS` ; préparer une ingestion relançable qui conserve les originaux. | Chaque lot est traçable ; `RAW` reste inchangé par les traitements. |
 | 5. Qualité et préparation | Définir les règles à partir des vrais schémas : champs manquants, dates, formats, doublons et identifiants ; compter rejets et normalisations. | Les sorties `PROCESSED` ont des contrôles et règles documentés. |
-| 6. Traitements MapReduce | Normaliser les schémas télémétriques annoncés ; produire les joueurs actifs/jour, DAU/WAU, la rétention Dn et l’analyse technique jointe aux profils. | Jobs Java présents et compilables ; exécutions et résultats réels à confirmer après inventaire. |
+| 6. Traitements MapReduce | Normaliser les schémas télémétriques annoncés ; produire les joueurs actifs/jour, DAU/WAU, la rétention Dn et l’analyse technique jointe aux profils. | Jobs Java présents et compilables ; exécutions et résultats réels restent à produire sur le dataset. |
 | 7. Analyses et jointures | Étudier activité/rétention, choisir un axe métier après inspection, croiser au moins deux sources et mener une exploration libre. | Définitions, populations, fenêtres, résultats, limites et confiance documentés. |
 | 8. Passage à l’échelle | Fixer une limite mémoire Java, dépasser cette limite en volume, relever compteurs et journaux Hadoop. | Volume, limite, durée et indicateurs consignés ; aucune performance sans mesure. |
 | 9. Livrables | Finaliser README, scripts, configuration, résultats vérifiés, rapport et présentation. | Trames prêtes dans [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) et [PRESENTATION_OUTLINE.md](PRESENTATION_OUTLINE.md) ; une autre personne peut reproduire le parcours et comprendre les recommandations. |
@@ -54,7 +54,7 @@ Piste candidate : abandon (`level_abandon` ou `match_end.outcome=abandon`) selon
 ## Décisions en attente
 
 - L’environnement de préparation du mainteneur utilise Hadoop 3.5.0 sous WSL, en mode pseudo-distribué mono-nœud ; l’alias `turing-server` est local et cet environnement n’est pas partagé. Ce n’est pas une capacité de production.
-- Chemin physique et stratégie d’ingestion à décider après confirmation du téléchargement.
+- Chemin source confirmé : `data/source/` ; stratégie d’ingestion HDFS encore à définir.
 - Les zones HDFS `/datalake/raw`, `/datalake/processed` et `/datalake/analytics` existent ; le partitionnement reste à définir selon les sources.
 - Concordance des fichiers livrés avec les formats et variantes annoncés dans le catalogue ; les snapshots joueurs JSONL sont requis par les jobs préparés.
 - Disponibilité et qualité des clés de jointure dans les données réelles, et éventuelle conversion BSON vers JSONL.

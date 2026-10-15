@@ -14,7 +14,7 @@ Project Nexus is an educational Big Data project using Hadoop and Java MapReduce
 | [Execution setup](docs/en/EXECUTION.md) | Manual and Docker Compose setup, OS prerequisites, and script responsibilities. |
 | [Project plan](docs/en/PLAN.md) | Phases, exit criteria, analysis tracks, and pending decisions. |
 | [Environment status](docs/en/ENVIRONMENT.md) | Workstation and Hadoop cluster setup and verified state. |
-| [Preparation guide](docs/en/PREPARATION.md) | Cross-platform tools and steps to take after the download completes. |
+| [Dataset preparation guide](docs/en/PREPARATION.md) | Inventory and handling of the downloaded dataset. |
 | [Data catalog template](docs/en/DATA_CATALOG_TEMPLATE.md) | Record observed schemas, quality rules, and join keys. |
 | [Official data catalog](docs/en/DATA_CATALOG.md) | Announced sources, schemas, join keys, metrics, and quality risks. |
 | [Report template](docs/en/REPORT_TEMPLATE.md) | Structure for the final report, including quality, analyses, and scale measurements. |
@@ -42,7 +42,7 @@ The Python utility handles inventory, cluster management, packaging, and job sub
 - **Run jobs with Compose:** Docker Desktop/Engine and Compose start a local Hadoop 3.5.0 cluster; Python 3.9+ and JDK 17 are still used locally by the helper and Maven Wrapper. No Hadoop installation, WSL account, or SSH access to the maintainer's machine is required. See the execution guide for setup and commands.
 - **Run jobs with manual SSH:** a Hadoop cluster is required. The current `turing-server` SSH alias points to the maintainer's own WSL environment; it is not a shared server. Another cluster requires its own SSH access and adaptation of machine-specific paths in the script.
 - **Run jobs on a different cluster:** configure Hadoop 3.5.0, Java 17, HDFS/YARN, the project configuration, and an SSH account on that cluster. Update the target and HDFS paths for that environment.
-- **Dataset:** the real dataset is not stored in this repository. It must be obtained separately, inventoried, and loaded into HDFS before the analysis jobs can run.
+- **Dataset:** the dataset is excluded from Git. The maintainer's local copy is under `data/source/`; collaborators must obtain their own copy, then inventory and load it into HDFS before running analysis jobs.
 - **Docker Compose:** the repository includes a single-node local Hadoop environment. Docker Desktop/Engine, sufficient local memory/storage, and separate dataset ingestion into HDFS are still required.
 
 ## Français
@@ -55,7 +55,7 @@ The Python utility handles inventory, cluster management, packaging, and job sub
 | [Installation et exécution](docs/fr/EXECUTION.md) | Parcours manuel et Docker Compose, prérequis par OS et rôle des scripts. |
 | [Plan du projet](docs/fr/PLAN.md) | Étapes, critères de sortie, axes d’analyse et décisions en attente. |
 | [État de l’environnement](docs/fr/ENVIRONMENT.md) | Poste de travail, cluster Hadoop et vérifications réalisées. |
-| [Guide de préparation](docs/fr/PREPARATION.md) | Outils multiplateformes et étapes après la fin du téléchargement. |
+| [Préparation des données](docs/fr/PREPARATION.md) | Inventaire et gestion du jeu de données téléchargé. |
 | [Modèle de catalogue des données](docs/fr/DATA_CATALOG_TEMPLATE.md) | Consigner les schémas observés, les règles de qualité et les clés de jointure. |
 | [Catalogue officiel des données](docs/fr/DATA_CATALOG.md) | Sources, schémas annoncés, clés de jointure, indicateurs et risques qualité. |
 | [Trame du rapport](docs/fr/REPORT_TEMPLATE.md) | Structure du rapport final, de la qualité aux mesures d’échelle. |

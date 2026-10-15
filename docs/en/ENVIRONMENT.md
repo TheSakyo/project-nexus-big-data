@@ -1,6 +1,6 @@
 # Development environment
 
-Status recorded on October 13, 2026.
+Initial status recorded on October 13, 2026; Compose and dataset location updated on October 15, 2026.
 
 ## Workstation
 
@@ -9,11 +9,11 @@ Status recorded on October 13, 2026.
 | Windows Java / `javac` | OpenJDK 21.0.1 | Local tools and compilation. |
 | Maven Wrapper | Maven 3.9.9, wrapper 3.3.4 | Use `mvnw.cmd` on Windows or `./mvnw` on Linux/macOS/WSL. |
 | WSL `debian-default` | Debian 13, OpenJDK 21.0.12, Maven 3.9.9 | Linux build environment is ready. |
-| Docker Desktop | CLI installed; engine was stopped at the time of inspection | Not used for Hadoop. |
+| Docker Desktop | Hadoop 3.5.0 Compose cluster was healthy when checked on October 15, 2026. | Local Compose cluster runtime. |
 
-A Docker Compose Hadoop setup is now included at the repository root. It has not been started or verified in this session; Docker Engine must be running to build and start it.
+A Docker Compose Hadoop setup at the repository root was started and verified healthy on October 15, 2026. Docker Desktop must be running to start or manage the cluster.
 
-The C: system drive lost free space during WSL installations and downloads. Avoid downloading or extracting Hadoop or the dataset there. The dataset directory is separate from the repository and must not be accessed before the user confirms the download is complete.
+The C: system drive lost free space during WSL installations and downloads. Avoid downloading or extracting Hadoop or the dataset there. The download is complete; the local copy is under `D:\Workspaces\java-workspace\JavaHadoop\data\source\` and is excluded from Git.
 
 ## Maintainer's local Hadoop cluster
 
@@ -36,7 +36,7 @@ Checksum-verified installation archives are kept in `/home/turinguser/hadoop-set
 
 ## Data handling rules
 
-- The dataset is still downloading to `D:\gdau8rrtb2czlzgbh4uocjqb.51.75.28.54.sslip.io`.
-- Do not move, rename, inspect, or import that directory until the user confirms the download is complete.
-- Once ready, measure its size and available storage before copying anything to HDFS; the repository remains at `D:\Workspaces\java-workspace\JavaHadoop`.
+- The download is complete; the project source copy is in `data/source/`.
+- The local inventory is stored under `reports/local/`; full quality checks and HDFS ingestion remain to be completed.
+- Check available storage before ingesting into HDFS; keep the source copy unchanged and excluded from Git.
 - Keep downloaded data out of Git; `data/`, `datalake/`, `datasets/`, and `reports/local/` are ignored.

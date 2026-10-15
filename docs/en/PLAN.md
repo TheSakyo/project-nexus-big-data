@@ -1,21 +1,21 @@
 # Project plan — Project Nexus
 
-This plan follows the assignment requirements and the [official data catalog](DATA_CATALOG.md). The delivered files, their volumes, and discrepancies from the catalog still need to be checked after the download.
+This plan follows the assignment requirements and the [official data catalog](DATA_CATALOG.md). The download and file inventory are complete; detailed schema and quality checks remain to be performed.
 
 ## Status and working rule
 
-The dataset is downloading outside the repository. Do not read, move, rename, or process data files until the user confirms the download is complete. The separate official `DATA_CATALOG.md` has been reviewed and copied into the repository. Code, documentation, and configuration work takes place in `D:\Workspaces\java-workspace\JavaHadoop`.
+The complete dataset is under `data/source/`, which is excluded from Git. The local inventory is stored under `reports/local/`. The official `DATA_CATALOG.md` was reviewed and copied into the repository. Code, documentation, and configuration work takes place in `D:\Workspaces\java-workspace\JavaHadoop`.
 
 ## Phases and exit criteria
 
 | Phase | Actions | Exit criteria |
 |---|---|---|
 | 1. Baseline | Review the repository, assignment, Java, Maven, Docker/Compose, WSL, and Hadoop options. | Current state is documented and pre-existing Git changes are preserved. |
-| 2. Data inventory | After confirmation, record files, formats, sizes, partitions, empty files, and errors; compare against the official catalog. | Python tool is ready (`python scripts/nexus.py inventory`); the real inventory and discrepancies are established. |
-| 3. Environment | Compare available options by memory, storage, network, and Hadoop/Java compatibility. | Maintainer's local environment: Debian under WSL, Hadoop 3.5.0, Java 17, and a successful HDFS/YARN/MapReduce smoke job. It is not shared. |
+| 2. Data inventory | Record files, formats, sizes, partitions, empty files, and errors; compare against the official catalog. | Local inventory is complete and manifests were compared; detailed data-quality rules remain to be validated during processing. |
+| 3. Environment | Compare available options by memory, storage, network, and Hadoop/Java compatibility. | WSL environment verified with a smoke job; Docker Compose Hadoop 3.5.0 cluster reported healthy on October 15, 2026. These local environments are not shared. |
 | 4. Data lake and ingestion | Define `RAW`, `PROCESSED`, and `ANALYTICS`; prepare restartable ingestion that preserves originals. | Every batch is traceable; processing never changes `RAW`. |
 | 5. Quality and preparation | Define rules from observed schemas: missing fields, dates, formats, duplicates, and identifiers; count rejects and normalizations. | `PROCESSED` outputs have documented checks and rules. |
-| 6. MapReduce jobs | Normalize announced telemetry schemas; produce daily active players, DAU/WAU, Dn retention, and profile-joined technical analysis. | Java jobs are present and compile; real executions and results remain to be confirmed after inventory. |
+| 6. MapReduce jobs | Normalize announced telemetry schemas; produce daily active players, DAU/WAU, Dn retention, and profile-joined technical analysis. | Java jobs are present and compile; real executions and results still need to be produced on the dataset. |
 | 7. Analysis and joins | Study activity/retention, choose a business question after inspection, join at least two sources, and perform open-ended exploration. | Definitions, populations, windows, results, limitations, and confidence are documented. |
 | 8. Scalability | Set a Java memory limit, process more data than that limit, and record Hadoop counters and logs. | Volume, limit, duration, and metrics are recorded; no performance claims without measurement. |
 | 9. Deliverables | Finalize README, scripts, configuration, verified results, report, and presentation. | Templates are ready in [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) and [PRESENTATION_OUTLINE.md](PRESENTATION_OUTLINE.md); another person can reproduce the workflow and understand the recommendations. |
@@ -54,7 +54,7 @@ Candidate: abandonment (`level_abandon` or `match_end.outcome=abandon`) by map, 
 ## Decisions still pending
 
 - The maintainer's preparation environment uses Hadoop 3.5.0 under WSL in single-node pseudo-distributed mode; the `turing-server` alias is local and this environment is not shared. This is not production capacity.
-- Select the physical source path and ingestion strategy after the user confirms the download is complete.
+- Source path is confirmed as `data/source/`; the HDFS ingestion strategy remains to be defined.
 - HDFS zones `/datalake/raw`, `/datalake/processed`, and `/datalake/analytics` exist; internal partitioning depends on the observed sources.
 - Check delivered files against the catalog's formats and schema variants; the prepared jobs require player JSONL snapshots.
 - Confirm join-key availability and quality in actual data, and determine whether BSON-to-JSONL conversion is needed.

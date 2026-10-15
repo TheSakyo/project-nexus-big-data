@@ -1,6 +1,6 @@
-# Préparation indépendante du dataset
+# Préparation du dataset
 
-Les outils ci-dessous peuvent être préparés pendant le téléchargement. Ne pas les lancer sur le dossier source avant confirmation de la fin du téléchargement.
+Le téléchargement est terminé. La copie locale est dans `data/source/`, exclue de Git. Les commandes ci-dessous s’appliquent à cette copie ; ne pas lancer l’inventaire pendant qu’un téléchargement ou une modification des fichiers est en cours.
 
 ## Inventaire reproductible
 
@@ -36,7 +36,7 @@ python scripts/nexus.py cluster stop
 
 Le démarrage synchronise la configuration versionnée et démarre les services. Il ne formate jamais HDFS. Il suppose que le NameNode a déjà été initialisé et que le compte SSH peut démarrer Hadoop. `stop` arrête les services dans l’ordre inverse ; les données HDFS ne sont pas supprimées.
 
-## Étapes après confirmation du téléchargement
+## Étapes de préparation des données
 
 1. Générer l’inventaire et comparer les sources au manifeste et au catalogue réellement livrés.
 2. Inspecter un échantillon représentatif de chaque format sans modifier les originaux.

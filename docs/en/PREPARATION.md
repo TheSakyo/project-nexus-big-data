@@ -1,6 +1,6 @@
-# Dataset-independent preparation
+# Dataset preparation
 
-The tools below can be prepared while the dataset downloads. Do not run them against the source directory until the user confirms the download is complete.
+The download is complete. The maintainer's local copy is under `data/source/`, which is excluded from Git. The commands below apply to this copy; do not inventory files while they are still downloading or changing.
 
 ## Reproducible inventory
 
@@ -36,7 +36,7 @@ python scripts/nexus.py cluster stop
 
 Starting synchronizes the version-controlled configuration and starts the services. It never formats HDFS. It assumes the NameNode has already been formatted and the SSH account can start Hadoop. `stop` stops services in reverse order; it does not delete HDFS data.
 
-## After the download is confirmed
+## Dataset preparation steps
 
 1. Generate the inventory and compare sources with the delivered manifest and catalog.
 2. Inspect a representative sample of each format without modifying originals.

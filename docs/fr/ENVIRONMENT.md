@@ -1,6 +1,6 @@
 # Environnement de développement
 
-État relevé le 13 octobre 2026.
+État initial relevé le 13 octobre 2026 ; configuration Compose et emplacement des données actualisés le 15 octobre 2026.
 
 ## Poste de travail
 
@@ -9,11 +9,11 @@
 | Java / `javac` Windows | OpenJDK 21.0.1 | Outils et compilation locale. |
 | Maven Wrapper | Maven 3.9.9, wrapper 3.3.4 | Utiliser `mvnw.cmd` sous Windows ou `./mvnw` sous Linux/macOS/WSL. |
 | WSL `debian-default` | Debian 13, OpenJDK 21.0.12 et Maven 3.9.9 | Environnement Linux de build déjà prêt. |
-| Docker Desktop | CLI installée, moteur arrêté lors du relevé | Non utilisé pour Hadoop. |
+| Docker Desktop | Cluster Hadoop Compose 3.5.0 healthy lors de la vérification du 15 octobre 2026. | Exécution locale du cluster Compose. |
 
-Une configuration Hadoop Docker Compose est maintenant présente à la racine du dépôt. Elle n’a pas été démarrée ni vérifiée dans cette session ; le moteur Docker doit être actif pour la construire et la lancer.
+La configuration Hadoop Docker Compose à la racine du dépôt a été démarrée et vérifiée healthy le 15 octobre 2026. Docker Desktop doit être actif pour démarrer ou gérer le cluster.
 
-Le disque système C: a diminué pendant les installations et téléchargements WSL. Éviter d’y télécharger ou d’y extraire Hadoop et le jeu de données. Le répertoire du jeu de données est séparé du dépôt et ne doit pas être utilisé avant confirmation de la fin du téléchargement.
+Le disque système C: a diminué pendant les installations et téléchargements WSL. Éviter d’y télécharger ou d’y extraire Hadoop et le jeu de données. Le téléchargement est terminé ; la copie locale se trouve dans `D:\Workspaces\java-workspace\JavaHadoop\data\source\` et est exclue de Git.
 
 ## Cluster Hadoop local du mainteneur
 
@@ -36,7 +36,7 @@ Les archives d’installation vérifiées par checksum sont conservées dans `/h
 
 ## Règles concernant les données
 
-- Le téléchargement se poursuit dans `D:\gdau8rrtb2czlzgbh4uocjqb.51.75.28.54.sslip.io`.
-- Ne pas déplacer, renommer, inspecter ou importer ce répertoire avant confirmation de la fin du téléchargement.
-- Une fois prêt, mesurer sa taille et l’espace disponible avant toute copie vers HDFS ; le dépôt reste dans `D:\Workspaces\java-workspace\JavaHadoop`.
+- Le téléchargement est terminé ; la copie source utilisée par le projet est `data/source/`.
+- L’inventaire local est enregistré dans `reports/local/` ; les contrôles complets de qualité et l’ingestion HDFS restent à réaliser.
+- Mesurer l’espace disponible avant l’ingestion vers HDFS ; la copie source reste inchangée et exclue de Git.
 - Garder les données téléchargées hors Git ; `data/`, `datalake/`, `datasets/` et `reports/local/` sont ignorés.

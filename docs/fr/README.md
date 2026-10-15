@@ -13,8 +13,8 @@ Projet pédagogique de traitement de données de Nexus Interactive avec Hadoop e
 ## État actuel
 
 - Squelette Maven prêt avec Maven Wrapper ; configuration Hadoop versionnée dans `config/hadoop/`.
-- Le téléchargement des données est en cours dans un dossier distinct du dépôt.
-- Les sources et leurs volumes seront inventoriés après confirmation de la fin du téléchargement.
+- Le téléchargement est terminé ; la copie locale du dataset se trouve dans `data/source/`, dossier exclu de Git.
+- L’inventaire des fichiers est disponible dans `reports/local/`. Les contrôles approfondis de schéma et de qualité restent à réaliser sur HDFS.
 - Les jobs Java MapReduce pour DAU/WAU, rétention et incidents techniques sont préparés ; aucune sortie n’a été calculée sur les données du projet.
 - Hadoop 3.5.0, HDFS et YARN sont installés dans l’environnement WSL Linux local du mainteneur, accessible par son alias SSH `turing-server` ; le test WordCount de bout en bout a réussi sur des données synthétiques. Cet alias n’est pas partagé avec les collaborateurs.
 - Les zones HDFS `/datalake/raw`, `/datalake/processed` et `/datalake/analytics` sont créées.
@@ -27,7 +27,7 @@ Les résultats analytiques ne seront documentés qu’après exécution et véri
 - [Installation et exécution multiplateformes](EXECUTION.md)
 - [Plan complet](PLAN.md)
 - [État de l’environnement](ENVIRONMENT.md)
-- [Préparation pendant le téléchargement](PREPARATION.md)
+- [Préparation des données](PREPARATION.md)
 - [Catalogue officiel des données](DATA_CATALOG.md)
 - [Modèle de catalogue de données](DATA_CATALOG_TEMPLATE.md)
 - [Trame du rapport final](REPORT_TEMPLATE.md)
