@@ -19,9 +19,7 @@ import java.time.Instant;
  */
 public record PlayerDocument(String playerId, Instant createdAt, String platform, String gpuVendor) {
 
-    /**
-     * Shared JSON parser; Jackson's configured mapper is safe for concurrent reads.
-     */
+    /** Shared JSON parser; Jackson's configured mapper is safe for concurrent reads. */
     private static final ObjectMapper JSON = new ObjectMapper();
 
     /**

@@ -33,7 +33,6 @@ public final class CohortRetentionMetricsJob {
     /** Prevents instantiation of this command-line job class. */
     private CohortRetentionMetricsJob() {}
 
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
@@ -156,7 +155,8 @@ public final class CohortRetentionMetricsJob {
             } catch(DateTimeParseException exception) {
                 context.getCounter(
                     "CohortRetention",
-                    "INVALID_INSTALL_DATE_OR_COHORT").increment(1);
+                    "INVALID_INSTALL_DATE_OR_COHORT"
+                ).increment(1);
                 return null;
             }
         }

@@ -36,16 +36,30 @@ public record TelemetryEvent(String eventId, String eventType, Instant timestamp
     /** Shared JSON parser reused across mapper and reducer calls. */
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    /** Local date-time formats supported by the published data catalog. */
+    /**
+     * Local date-time formats supported by the published data catalog.
+     */
     private static final List<DateTimeFormatter> LOCAL_FORMATS = List.of(
+
+        // Parse ISO-formatted local date-time values.
         DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+
+        // Parse date-time values using year-month-day notation with optional milliseconds.
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS]"),
+
+        // Parse date-time values using day/month/year notation with optional milliseconds.
         DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss[.SSS]")
     );
 
-    /** Date-only formats interpreted as midnight UTC. */
+    /**
+     * Date-only formats interpreted as midnight UTC.
+     */
     private static final List<DateTimeFormatter> DATE_FORMATS = List.of(
+
+        // Parse ISO-formatted dates without a time component.
         DateTimeFormatter.ISO_LOCAL_DATE,
+
+        // Parse dates using day/month/year notation.
         DateTimeFormatter.ofPattern("dd/MM/yyyy")
     );
 

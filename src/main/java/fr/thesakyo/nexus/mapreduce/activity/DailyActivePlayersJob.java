@@ -75,9 +75,7 @@ public final class DailyActivePlayersJob {
      */
     public static final class ActivePlayerMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 
-        /**
-         * Reusable output key to reduce unnecessary object allocations.
-         */
+        /** Reusable output key to reduce unnecessary object allocations. */
         private final Text outputKey = new Text();
 
         /**
@@ -137,7 +135,9 @@ public final class DailyActivePlayersJob {
             try { return TelemetryEvent.parse(line.toString()); }
             catch (TelemetryEvent.InvalidRecordException exception) {
 
-                /* Increment the counter corresponding to the parsing failure reason. */
+                /*
+                 * Increment the counter corresponding to the parsing failure reason.
+                 */
                 context.getCounter(QualityCounters.valueOf(exception.reason().name())).increment(1);
                 return null;
             }
@@ -209,9 +209,7 @@ public final class DailyActivePlayersJob {
      */
     public static final class DistinctPlayerReducer extends Reducer<Text, NullWritable, Text, NullWritable> {
 
-        /**
-         * Reusable output object for the normalized player-day record.
-         */
+        /** Reusable output object for the normalized player-day record. */
         private final Text output = new Text();
 
         /**
@@ -230,9 +228,7 @@ public final class DailyActivePlayersJob {
                 // Split the composite key into the date and player identifier.
                 String[] fields = compositeKey.toString().split(SEPARATOR, 2);
 
-                /*
-                 * Ignore malformed composite keys that do not contain both expected fields.
-                 */
+                // Ignore malformed composite keys that do not contain both expected fields.
                 if(fields.length != 2) return;
 
                 // Rebuild the normalized record with tab-separated date and player fields.
@@ -313,7 +309,8 @@ public final class DailyActivePlayersJob {
         if(args.length != 2) {
             System.err.println(
                 "Usage: DailyActivePlayersJob <telemetry-jsonl-input> "
-                    + "<distinct-day-player-output>");
+                    + "<distinct-day-player-output>"
+            );
             System.exit(2);
         }
 

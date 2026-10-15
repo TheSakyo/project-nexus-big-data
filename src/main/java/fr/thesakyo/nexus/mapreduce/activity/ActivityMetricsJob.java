@@ -47,14 +47,10 @@ public final class ActivityMetricsJob {
      */
     public static final class ExpandWindowsMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 
-        /**
-         * Reusable output key to reduce unnecessary object allocations.
-         */
+        /** Reusable output key to reduce unnecessary object allocations. */
         private final Text outputKey = new Text();
 
-        /**
-         * First observation date for which seven-day activity windows are complete.
-         */
+        /** First observation date for which seven-day activity windows are complete. */
         private LocalDate observationStart;
 
         /**
@@ -275,9 +271,7 @@ public final class ActivityMetricsJob {
     public static final class CountMetricMapper
         extends Mapper<LongWritable, Text, Text, LongWritable> {
 
-        /**
-         * Reusable output key containing the metric type and window date.
-         */
+        /** Reusable output key containing the metric type and window date. */
         private final Text outputKey = new Text();
 
         /**
@@ -323,9 +317,7 @@ public final class ActivityMetricsJob {
      */
     public static final class CountMetricReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
-        /**
-         * Reusable output value containing the aggregated player count.
-         */
+        /** Reusable output value containing the aggregated player count. */
         private final LongWritable total = new LongWritable();
 
         /**
@@ -371,44 +363,43 @@ public final class ActivityMetricsJob {
      * @throws IOException if the job cannot be configured
      */
     private static Job configureDistinctWindows(Configuration configuration, Path input,
-                                                Path output, LocalDate observationStart)
-            throws IOException {
+                                                Path output, LocalDate observationStart) throws IOException {
 
-                // Make the observation start date available to every mapper.
-                configuration.set("nexus.activity.start-date", observationStart.toString());
+            // Make the observation start date available to every mapper.
+            configuration.set("nexus.activity.start-date", observationStart.toString());
 
-                // Create the first MapReduce job with a descriptive name.
-                Job job = Job.getInstance(configuration, "nexus-distinct-daily-and-weekly-players");
+            // Create the first MapReduce job with a descriptive name.
+            Job job = Job.getInstance(configuration, "nexus-distinct-daily-and-weekly-players");
 
-                // Specify the class containing the job implementation.
-                job.setJarByClass(ActivityMetricsJob.class);
+            // Specify the class containing the job implementation.
+            job.setJarByClass(ActivityMetricsJob.class);
 
-                /* Configure text input and the mapper that expands DAU/WAU memberships. */
-                job.setInputFormatClass(TextInputFormat.class);
-                job.setMapperClass(ExpandWindowsMapper.class);
+            /* Configure text input and the mapper that expands DAU/WAU memberships. */
+            job.setInputFormatClass(TextInputFormat.class);
+            job.setMapperClass(ExpandWindowsMapper.class);
 
-                /* Deduplicate memberships locally, then globally in the reducer. */
-                job.setCombinerClass(DistinctWindowCombiner.class);
-                job.setReducerClass(DistinctWindowReducer.class);
+            /* Deduplicate memberships locally, then globally in the reducer. */
+            job.setCombinerClass(DistinctWindowCombiner.class);
+            job.setReducerClass(DistinctWindowReducer.class);
 
-                /* Define the intermediate key and value types emitted by the mapper. */
-                job.setMapOutputKeyClass(Text.class);
-                job.setMapOutputValueClass(NullWritable.class);
+            /* Define the intermediate key and value types emitted by the mapper. */
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(NullWritable.class);
 
-                /* Define the final key and value types written by the reducer. */
-                job.setOutputKeyClass(Text.class);
-                job.setOutputValueClass(NullWritable.class);
+            /* Define the final key and value types written by the reducer. */
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(NullWritable.class);
 
-                /* Write the results as text files. */
-                job.setOutputFormatClass(TextOutputFormat.class);
+            /* Write the results as text files. */
+            job.setOutputFormatClass(TextOutputFormat.class);
 
-                /* Register the input and output paths for the job. */
-                FileInputFormat.addInputPath(job, input);
-                FileOutputFormat.setOutputPath(job, output);
+            /* Register the input and output paths for the job. */
+            FileInputFormat.addInputPath(job, input);
+            FileOutputFormat.setOutputPath(job, output);
 
-                // Return the configured job without executing it.
-                return job;
-            }
+            // Return the configured job without executing it.
+            return job;
+        }
 
     /**
      * Configures the second MapReduce stage, which counts unique player memberships
@@ -481,7 +472,8 @@ public final class ActivityMetricsJob {
             System.err.println(
                 "Usage: ActivityMetricsJob <distinct-day-player-input> "
                     + "<distinct-window-output> <metrics-output> "
-                    + "<observation-start-date>");
+                    + "<observation-start-date>"
+            );
             System.exit(2);
         }
 
