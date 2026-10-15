@@ -32,9 +32,9 @@ The Python utility handles inventory, cluster management, packaging, and job sub
 
 ### Project instructions
 
-- Original assignment (PDF, French): [Project brief](instructions/PROJECT_BRIEF.pdf).
+- Original assignment (PDF, French): [Project brief](instructions/PROJECT_BRIEF_FR.pdf).
 - French Markdown copy: [Project instructions](instructions/PROJECT_BIG_DATA_FR.md).
-- Source data catalog (English): [Instructions catalog](instructions/DATA_CATALOG.md).
+- Source data catalog (English): [Instructions catalog](instructions/DATA_CATALOG_EN.md).
 
 ### Prerequisites and execution modes
 
@@ -72,9 +72,9 @@ L’outil Python gère l’inventaire, le build et la soumission des jobs ; les 
 
 ### Consignes du projet
 
-- Sujet original (PDF, français) : [Sujet du projet](instructions/PROJECT_BRIEF.pdf).
+- Sujet original (PDF, français) : [Sujet du projet](instructions/PROJECT_BRIEF_FR.pdf).
 - Copie Markdown en français : [Consignes du projet](instructions/PROJECT_BIG_DATA_FR.md).
-- Catalogue source (anglais) : [Catalogue des consignes](instructions/DATA_CATALOG.md).
+- Catalogue source (anglais) : [Catalogue des consignes](instructions/DATA_CATALOG_EN.md).
 
 ### Prérequis et modes d’exécution
 

@@ -1,4 +1,4 @@
-[Sujet original (PDF)](PROJECT_BRIEF.pdf)
+[Sujet original (PDF)](PROJECT_BRIEF_FR.pdf)
 
 ## Avec Docker (ou azure, ou orale, une VM Linux avec 128GO de stockage = on y stocke hadoop ou hdfs; le dataset (40 GO))
 Besoin métier -> identifier métriques -> collecte -> traitements -> Analyse -> Data Analyse -> Prise de décision - outil décisionnel
